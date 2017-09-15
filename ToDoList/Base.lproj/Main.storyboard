@@ -66,10 +66,10 @@
             </objects>
             <point key="canvasLocation" x="692" y="150.67466266866569"/>
         </scene>
-        <!--View Controller-->
+        <!--Edit View Controller-->
         <scene sceneID="u4h-n1-u4H">
             <objects>
-                <viewController id="BGr-gV-DPj" sceneMemberID="viewController">
+                <viewController id="BGr-gV-DPj" customClass="EditViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="525-Vh-cCL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -137,6 +137,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5Ce-eA-5u6"/>
                     </view>
+                    <connections>
+                        <outlet property="entityTitleField" destination="T1y-7Q-Aul" id="Yvv-K1-8Dx"/>
+                        <outlet property="viewTitle" destination="2E0-QU-1XG" id="spR-RV-Gur"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4UI-c9-vPi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
