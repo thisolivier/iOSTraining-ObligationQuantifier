@@ -12,9 +12,9 @@ import CoreData
 class TodolistViewController: UITableViewController, TodoCellDelegate, EditViewControllerDelegate {
 
     
-    // ******************************************** //
-    // Setting up core variables, initialising view //
-    // ******************************************** //
+    // ******************************************************* //
+    // Setting up core variables and segues, initialising view //
+    // ******************************************************* //
     
     let appContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var allToDoListEntities = [ToDoItem]()
@@ -27,6 +27,11 @@ class TodolistViewController: UITableViewController, TodoCellDelegate, EditViewC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let incomingController = segue.destination as! EditViewController
         incomingController.delegate = self
+
+        if let incomingEntity: ToDoItem = sender as? ToDoItem{
+            incomingController.existingEntity = incomingEntity
+        }
+       
         print(incomingController)
         super.prepare(for: segue, sender: sender)
     }
@@ -115,7 +120,8 @@ class TodolistViewController: UITableViewController, TodoCellDelegate, EditViewC
         let share = UITableViewRowAction(style: .normal, title: "Edit") {
             (action, indexPath) in
             // share item at indexPath
-            self.performSegue(withIdentifier: "modalSegueToEdit", sender: indexPath)
+            let currentToDo = self.allToDoListEntities[indexPath.row]
+            self.performSegue(withIdentifier: "modalSegueToEdit", sender: currentToDo)
         }
         
         share.backgroundColor = UIColor.blue
@@ -131,12 +137,18 @@ class TodolistViewController: UITableViewController, TodoCellDelegate, EditViewC
     }
     
     func EditViewSavePressed(sender: EditViewController) {
-        let newToDoEntity = NSEntityDescription.insertNewObject(forEntityName: "ToDoItem", into: appContext) as! ToDoItem
-        newToDoEntity.title = sender.entityTitleField.text
-        newToDoEntity.date = sender.entityDateField.date
-        newToDoEntity.extendedCopy = sender.entityExtendedTextField.text
-        newToDoEntity.completed = false
-        allToDoListEntities.append(newToDoEntity)
+        var toDoEntity:ToDoItem?
+        if let _ = sender.existingEntity {
+            toDoEntity = sender.existingEntity!
+        } else {
+            toDoEntity = (NSEntityDescription.insertNewObject(forEntityName: "ToDoItem", into: appContext) as! ToDoItem)
+            allToDoListEntities.append(toDoEntity!)
+        }
+        toDoEntity!.title = sender.entityTitleField.text
+        toDoEntity!.date = sender.entityDateField.date
+        toDoEntity!.extendedCopy = sender.entityExtendedTextField.text
+        toDoEntity!.completed = false
+        
         do{
             try appContext.save()
             print("We saved our new item")
