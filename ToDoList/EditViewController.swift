@@ -13,8 +13,9 @@ class EditViewController: UIViewController {
     @IBOutlet weak var entityExtendedTextField: UITextField!
     @IBOutlet weak var entityDateField: UIDatePicker!
     @IBOutlet weak var entityTitleField: UITextField!
-    @IBOutlet weak var mainStackView: UIStackView!
-    @IBOutlet weak var dateAndButtonsStackView: UIStackView!
+    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
+    
     var existingEntity: ToDoItem?
     var delegate: TodolistViewController?
     @IBAction func CancelPressed(_ sender: UIButton) {
@@ -31,6 +32,8 @@ class EditViewController: UIViewController {
             entityTitleField.text = existingEntity!.title!
             entityExtendedTextField.text = existingEntity!.extendedCopy!
             entityDateField.setDate(existingEntity!.date!, animated: true)
+            saveButton.setTitleColor(UIColor.darkGray, for: UIControlState.normal)
+            cancelButton.setTitleColor(UIColor.darkGray, for: UIControlState.normal)
             self.view.backgroundColor = UIColor.darkGray
         }
     }

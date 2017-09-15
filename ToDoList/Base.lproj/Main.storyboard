@@ -166,6 +166,7 @@
                                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="hI5-8a-Lhs">
                                                         <rect key="frame" x="0.0" y="0.0" width="315" height="216"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <date key="date" timeIntervalSinceReferenceDate="527149957.33297497">
                                                             <!--2017-09-15 06:32:37 +0000-->
                                                         </date>
@@ -216,6 +217,9 @@
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADD NEW OBLIGATION" lineBreakMode="tailTruncation" minimumScaleFactor="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="2E0-QU-1XG">
                                 <rect key="frame" x="20" y="30" width="335" height="46.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="yMk-cU-1zs"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Futura-CondensedExtraBold" family="Futura" pointSize="60"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -234,11 +238,11 @@
                         <viewLayoutGuide key="safeArea" id="5Ce-eA-5u6"/>
                     </view>
                     <connections>
-                        <outlet property="dateAndButtonsStackView" destination="Rbz-WE-u6P" id="PuX-v3-thA"/>
+                        <outlet property="cancelButton" destination="mHC-IB-yj7" id="Wab-ua-uiX"/>
                         <outlet property="entityDateField" destination="hI5-8a-Lhs" id="H9D-oT-1J4"/>
                         <outlet property="entityExtendedTextField" destination="Vbc-f5-XXe" id="SW4-gq-8hx"/>
                         <outlet property="entityTitleField" destination="T1y-7Q-Aul" id="Yvv-K1-8Dx"/>
-                        <outlet property="mainStackView" destination="S6E-JX-O6L" id="Vmp-MK-glS"/>
+                        <outlet property="saveButton" destination="LCm-6b-h36" id="Up3-L1-emW"/>
                         <outlet property="viewTitle" destination="2E0-QU-1XG" id="spR-RV-Gur"/>
                     </connections>
                 </viewController>
