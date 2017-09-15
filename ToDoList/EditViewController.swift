@@ -10,7 +10,16 @@ import UIKit
 
 class EditViewController: UIViewController {
     @IBOutlet weak var viewTitle: UILabel!
+    @IBOutlet weak var entityExtendedTextField: UITextField!
+    @IBOutlet weak var entityDateField: UIDatePicker!
     @IBOutlet weak var entityTitleField: UITextField!
+    
+    @IBAction func CancelPressed(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    @IBAction func SavePressed(_ sender: UIButton) {
+        delegate?.EditViewSavePressed(sender: self)
+    }
     var delegate: TodolistViewController?
     override func viewDidLoad() {
         delegate?.SetupEditView(sender: self)
@@ -19,4 +28,5 @@ class EditViewController: UIViewController {
 
 protocol EditViewControllerDelegate {
     func SetupEditView(sender: EditViewController)
+    func EditViewSavePressed(sender: EditViewController)
 }

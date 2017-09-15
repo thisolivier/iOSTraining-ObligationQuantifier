@@ -10,10 +10,14 @@ import UIKit
 import CoreData
 
 class TodolistViewController: UITableViewController, TodoCellDelegate, EditViewControllerDelegate {
+
     
-    // Manual variables
+    // ******************************************** //
+    // Setting up core variables, initialising view //
+    // ******************************************** //
+    
     let appContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var allToDoListEntities: [ToDoItem]?
+    var allToDoListEntities = [ToDoItem]()
     
     // Actions and Outlets tied to todolist table view (initial view)
     @IBAction func AddButtonPressed(_ sender: UIBarButtonItem) {
@@ -28,21 +32,22 @@ class TodolistViewController: UITableViewController, TodoCellDelegate, EditViewC
     }
     
     // Fetching existing todo entities from the CoreData
-    func fetchAll() -> [ToDoItem]?{
+    func fetchAll(){
         let requestObject = NSFetchRequest<NSFetchRequestResult>(entityName: "ToDoItem")
         do {
             let results = try appContext.fetch(requestObject)
-            return results as? [ToDoItem]
+            allToDoListEntities = results as! [ToDoItem]
         } catch {
             print("\(error)")
         }
-        return nil
     }
     
     // Basic view overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-        allToDoListEntities = fetchAll()
+        fetchAll()
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 200
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,23 +55,97 @@ class TodolistViewController: UITableViewController, TodoCellDelegate, EditViewC
         // Dispose of any resources that can be recreated.
     }
     
-    // Setting table creation
+    // **************** //
+    // Setting up table //
+    // **************** //
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allToDoListEntities?.count ?? 0
+        return allToDoListEntities.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let newCell = tableView.dequeueReusableCell(withIdentifier: "toDoItem") as! TodoCell
+        let currentToDoEntity = allToDoListEntities[indexPath.row]
         newCell.delegate = self
-        newCell.titleLabel.text = allToDoListEntities![indexPath.row].title
+        newCell.titleLabel.text = currentToDoEntity.title
+        let formattedDate = formatDate(dateObj: currentToDoEntity.date!)
+        newCell.dateLabel.text = formattedDate
+        newCell.extendedTextItem.text = currentToDoEntity.extendedCopy
+        newCell.accessoryType = currentToDoEntity.completed ? .checkmark : .none
         return newCell
     }
     
+    func formatDate(dateObj : Date) -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE MMM d, yyyy, HH:mm"
+        let dateAsString = formatter.string(from: dateObj)
+        return dateAsString
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let theCell = tableView.cellForRow(at: indexPath)
+        let theElement = allToDoListEntities[indexPath.row]
+        if theElement.completed == false {
+            theElement.completed = true
+            theCell!.accessoryType = .checkmark
+        } else {
+            theElement.completed = false
+            theCell!.accessoryType = .none
+        }
+        do{
+            try self.appContext.save()
+        } catch {
+            print ("Error saving completion status, didSelectRowAt")
+            print (error)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") {
+            (action, indexPath) in
+            let currentEntity = self.allToDoListEntities.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.appContext.delete(currentEntity)
+            do {
+                try self.appContext.save()
+            } catch {
+                print(error)
+            }
+        }
+        
+        let share = UITableViewRowAction(style: .normal, title: "Edit") {
+            (action, indexPath) in
+            // share item at indexPath
+            self.performSegue(withIdentifier: "modalSegueToEdit", sender: indexPath)
+        }
+        
+        share.backgroundColor = UIColor.blue
+        
+        return [delete, share]
+    }
+    
+    // *********************************************** //
     // Fulfilling EditViewController delegation duties
+    // *********************************************** //
     func SetupEditView(sender: EditViewController) {
         print("We're here and setup")
     }
-
-
+    
+    func EditViewSavePressed(sender: EditViewController) {
+        let newToDoEntity = NSEntityDescription.insertNewObject(forEntityName: "ToDoItem", into: appContext) as! ToDoItem
+        newToDoEntity.title = sender.entityTitleField.text
+        newToDoEntity.date = sender.entityDateField.date
+        newToDoEntity.extendedCopy = sender.entityExtendedTextField.text
+        newToDoEntity.completed = false
+        allToDoListEntities.append(newToDoEntity)
+        do{
+            try appContext.save()
+            print("We saved our new item")
+        } catch {
+            print("Saving failed from EditViewSavePressed")
+            print(error)
+        }
+        sender.dismiss(animated: true, completion: nil)
+        self.tableView.reloadData()
+    }
 }
 

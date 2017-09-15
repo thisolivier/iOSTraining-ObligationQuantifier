@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Futura.ttc">
+            <string>Futura-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Your Obligations-->
         <scene sceneID="JKv-X9-wj7">
@@ -19,27 +24,55 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="toDoItem" editingAccessoryType="disclosureIndicator" id="DH6-qW-iNx" customClass="TodoCell" customModule="ToDoList" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="toDoItem" editingAccessoryType="disclosureIndicator" rowHeight="200" id="DH6-qW-iNx" customClass="TodoCell" customModule="ToDoList" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="200"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DH6-qW-iNx" id="3Da-na-syO">
-                                    <rect key="frame" x="0.0" y="0.0" width="336" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="336" height="199.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MUa-p2-3aU">
-                                            <rect key="frame" x="28" y="11.5" width="290" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MUa-p2-3aU">
+                                            <rect key="frame" x="18" y="8" width="310" height="39"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="39" id="pK9-RS-Llz"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="30"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BeM-in-bXR" userLabel="Date">
+                                            <rect key="frame" x="18" y="55" width="300" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="OjR-lg-VES"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="Jof-B7-fUh" userLabel="ExtendedText">
+                                            <rect key="frame" x="18" y="84" width="300" height="95.5"/>
+                                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="MUa-p2-3aU" firstAttribute="leading" secondItem="3Da-na-syO" secondAttribute="leadingMargin" constant="20" id="51L-dT-bCS"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="MUa-p2-3aU" secondAttribute="trailing" constant="10" id="786-Jb-Wz4"/>
-                                        <constraint firstItem="MUa-p2-3aU" firstAttribute="centerY" secondItem="3Da-na-syO" secondAttribute="centerY" id="uQI-fD-dOq"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="BeM-in-bXR" secondAttribute="trailing" constant="10" id="4cX-OC-aIb"/>
+                                        <constraint firstItem="MUa-p2-3aU" firstAttribute="leading" secondItem="3Da-na-syO" secondAttribute="leadingMargin" constant="10" id="51L-dT-bCS"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="MUa-p2-3aU" secondAttribute="trailing" id="786-Jb-Wz4"/>
+                                        <constraint firstItem="BeM-in-bXR" firstAttribute="top" secondItem="MUa-p2-3aU" secondAttribute="bottom" constant="8" id="EUG-9X-8gr"/>
+                                        <constraint firstItem="Jof-B7-fUh" firstAttribute="top" secondItem="BeM-in-bXR" secondAttribute="bottom" constant="8" id="IjW-mz-4GG"/>
+                                        <constraint firstItem="Jof-B7-fUh" firstAttribute="leading" secondItem="3Da-na-syO" secondAttribute="leadingMargin" constant="10" id="YBY-KO-uVr"/>
+                                        <constraint firstAttribute="bottom" secondItem="Jof-B7-fUh" secondAttribute="bottom" constant="20" id="Z9M-5F-TM6"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Jof-B7-fUh" secondAttribute="trailing" constant="10" id="dIz-Ko-ECm"/>
+                                        <constraint firstItem="BeM-in-bXR" firstAttribute="leading" secondItem="3Da-na-syO" secondAttribute="leadingMargin" constant="10" id="kw7-7E-z7b"/>
+                                        <constraint firstItem="MUa-p2-3aU" firstAttribute="top" secondItem="3Da-na-syO" secondAttribute="top" constant="8" id="vH0-jm-96h"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
+                                    <outlet property="dateLabel" destination="BeM-in-bXR" id="Avo-jt-5yY"/>
+                                    <outlet property="extendedTextItem" destination="Jof-B7-fUh" id="vTg-3K-s6U"/>
                                     <outlet property="titleLabel" destination="MUa-p2-3aU" id="Pcf-Bp-clh"/>
                                 </connections>
                             </tableViewCell>
@@ -109,10 +142,16 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LCm-6b-h36">
                                                 <rect key="frame" x="0.0" y="0.0" width="167.5" height="30"/>
                                                 <state key="normal" title="SAVE"/>
+                                                <connections>
+                                                    <action selector="SavePressed:" destination="BGr-gV-DPj" eventType="touchUpInside" id="dpa-Kq-h0p"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mHC-IB-yj7">
                                                 <rect key="frame" x="167.5" y="0.0" width="167.5" height="30"/>
                                                 <state key="normal" title="Cancel"/>
+                                                <connections>
+                                                    <action selector="CancelPressed:" destination="BGr-gV-DPj" eventType="touchUpInside" id="Rl5-aT-baT"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -138,6 +177,8 @@
                         <viewLayoutGuide key="safeArea" id="5Ce-eA-5u6"/>
                     </view>
                     <connections>
+                        <outlet property="entityDateField" destination="hI5-8a-Lhs" id="H9D-oT-1J4"/>
+                        <outlet property="entityExtendedTextField" destination="Vbc-f5-XXe" id="SW4-gq-8hx"/>
                         <outlet property="entityTitleField" destination="T1y-7Q-Aul" id="Yvv-K1-8Dx"/>
                         <outlet property="viewTitle" destination="2E0-QU-1XG" id="spR-RV-Gur"/>
                     </connections>
